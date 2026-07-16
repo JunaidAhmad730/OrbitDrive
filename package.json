@@ -1,0 +1,24 @@
+{
+  "name": "orbitdrive",
+  "version": "1.0.0",
+  "description": "A modern cloud storage management platform powered by Telegram.",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.13.0",
+  "scripts": {
+    "dev": "echo \"Run apps individually\"",
+    "build": "echo \"Build all apps\"",
+    "lint": "echo \"Lint all apps\"",
+    "format": "echo \"Format all apps\""
+  },
+  "keywords": [
+    "telegram",
+    "cloud",
+    "storage",
+    "nextjs",
+    "express",
+    "typescript"
+  ],
+  "author": "Junaid Ahmad",
+  "license": "MIT"
+}
