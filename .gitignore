@@ -1,36 +1,32 @@
 # Dependencies
 node_modules
 
+# Next.js
+.next
+out
+
 # Logs
-logs
 *.log
-npm-debug.log*
-pnpm-debug.log*
 
 # Environment
 .env
 .env.local
-.env.*
+.env.*.local
 
 # Build
 dist
 build
-.next
-out
 
-# Coverage
-coverage
+# IDE
+.vscode
+.idea
 
 # OS
 .DS_Store
 Thumbs.db
 
-# VS Code
-.vscode/*
-!.vscode/extensions.json
+# PNPM
+.pnpm-store
 
-# Prisma
-prisma/dev.db
-
-# Misc
-*.tsbuildinfo
+# Turborepo
+.turbo
