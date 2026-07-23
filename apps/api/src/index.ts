@@ -1,19 +1,21 @@
-import app from "./app.js";
-import { env } from "./config/env.js";
-import { API } from "./config/constants.js";
+import app from "./app";
+import { ENV } from "./config/env";
+import { testDatabaseConnection, db } from "./db";
+import { users } from "./db/schema";
 
-app.listen(env.PORT, () => {
-  console.clear();
+async function startServer() {
+  await testDatabaseConnection();
 
-  console.log(`
-========================================
+  const existingUsers = await db.select().from(users);
 
-🚀 ${API.NAME}
+  console.log(`📦 Users in database: ${existingUsers.length}`);
 
-Environment : ${env.NODE_ENV}
-Version     : ${API.VERSION}
-Server      : http://localhost:${env.PORT}
+  app.listen(ENV.PORT, () => {
+    console.log(`🚀 OrbitDrive API running on http://localhost:${ENV.PORT}`);
+  });
+}
 
-========================================
-`);
+startServer().catch((error) => {
+  console.error(error);
+  process.exit(1);
 });
