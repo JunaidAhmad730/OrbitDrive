@@ -1,22 +1,9 @@
 import { Router } from "express";
-import { API } from "../config/constants.js";
+
+import authRoutes from "./auth.routes";
 
 const router = Router();
 
-router.get("/", (_req, res) => {
-  res.json({
-    status: "ok",
-    api: API.NAME,
-    version: API.VERSION,
-  });
-});
-
-router.get("/health", (_req, res) => {
-  res.json({
-    status: "healthy",
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString(),
-  });
-});
+router.use("/auth", authRoutes);
 
 export default router;
