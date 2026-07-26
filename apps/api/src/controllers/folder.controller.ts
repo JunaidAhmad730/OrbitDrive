@@ -4,14 +4,15 @@ import { folderService } from "../services/folder.service";
 class FolderController {
   async create(req: Request, res: Response) {
     try {
-      const { name, ownerId, parentId } = req.body;
+      const { name, parentId } = req.body;
 
-      const folder = await folderService.createFolder({
-        name,
-        ownerId,
-        parentId,
-      });
+const ownerId = req.user!.userId;
 
+const folder = await folderService.createFolder({
+  name,
+  ownerId,
+  parentId,
+});
       return res.status(201).json({
         success: true,
         data: folder,

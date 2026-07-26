@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-
 import { verifyAccessToken } from "../auth/jwt";
 
 declare global {
@@ -12,22 +11,35 @@ declare global {
   }
 }
 
-export function authenticate(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader?.startsWith("Bearer ")) {
-    return res.status(401).json({
-      success: false,
-      message: "Missing access token.",
-    });
-  }
-
-  const token = authHeader.split(" ")[1];
-
+export function authenticate(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   try {
-    const payload = verifyAccessToken(token);
+    const authHeader = req.headers.authorization;
 
-    req.user = payload;
+    if (!authHeader) {
+      return res.status(401).json({
+        success: false,
+        message: "Authorization header missing.",
+      });
+    }
+
+    if (!authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid authorization format.",
+      });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    const decoded = verifyAccessToken(token);
+
+    req.user = {
+      userId: decoded.userId,
+    };
 
     next();
   } catch {

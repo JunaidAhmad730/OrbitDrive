@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import app from "./app";
 import { ENV } from "./config/env";
 import { testDatabaseConnection, db } from "./db";

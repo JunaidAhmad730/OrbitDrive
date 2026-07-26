@@ -1,5 +1,8 @@
 import jwt, { type Secret, type SignOptions } from "jsonwebtoken";
 
+console.log("ACCESS_SECRET:", process.env.JWT_ACCESS_SECRET);
+console.log("REFRESH_SECRET:", process.env.JWT_REFRESH_SECRET);
+
 const ACCESS_SECRET: Secret = process.env.JWT_ACCESS_SECRET!;
 const REFRESH_SECRET: Secret = process.env.JWT_REFRESH_SECRET!;
 

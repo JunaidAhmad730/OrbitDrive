@@ -1,22 +1,39 @@
 import { Router } from "express";
 import { folderController } from "../controllers/folder.controller";
+import { authenticate } from "../middleware/auth.middleware";
 
 const router = Router();
 
-router.post("/", (req, res) => folderController.create(req, res));
+router.post("/", authenticate, folderController.create.bind(folderController));
 
-router.get("/:id", (req, res) => folderController.getById(req, res));
-
-router.get("/owner/:ownerId", (req, res) =>
-  folderController.getByOwner(req, res),
+router.get(
+  "/:id",
+  authenticate,
+  folderController.getById.bind(folderController),
 );
 
-router.get("/children/:parentId", (req, res) =>
-  folderController.getChildren(req, res),
+router.get(
+  "/owner/:ownerId",
+  authenticate,
+  folderController.getByOwner.bind(folderController),
 );
 
-router.patch("/:id", (req, res) => folderController.rename(req, res));
+router.get(
+  "/children/:parentId",
+  authenticate,
+  folderController.getChildren.bind(folderController),
+);
 
-router.delete("/:id", (req, res) => folderController.delete(req, res));
+router.patch(
+  "/:id",
+  authenticate,
+  folderController.rename.bind(folderController),
+);
+
+router.delete(
+  "/:id",
+  authenticate,
+  folderController.delete.bind(folderController),
+);
 
 export default router;
