@@ -1,16 +1,13 @@
 import express from "express";
 import cors from "cors";
 
-import routes from "./routes";
+import authRoutes from "./routes/auth.routes";
+import folderRoutes from "./routes/folder.routes";
+import fileRoutes from "./routes/file.routes";
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  }),
-);
+app.use(cors());
 
 app.use(express.json());
 
@@ -21,6 +18,10 @@ app.get("/", (_req, res) => {
   });
 });
 
-app.use("/api", routes);
+app.use("/api/auth", authRoutes);
+
+app.use("/api/folders", folderRoutes);
+
+app.use("/api/files", fileRoutes);
 
 export default app;

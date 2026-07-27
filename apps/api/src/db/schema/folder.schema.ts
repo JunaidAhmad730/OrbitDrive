@@ -1,15 +1,21 @@
-import { pgTable, text, timestamp, foreignKey } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  uuid,
+  text,
+  timestamp,
+  foreignKey,
+} from "drizzle-orm/pg-core";
 
 import { users } from "./user.schema";
 
 export const folders = pgTable(
   "folders",
   {
-    id: text("id").primaryKey(),
+    id: uuid("id").primaryKey(),
 
     name: text("name").notNull(),
 
-    parentId: text("parent_id"),
+    parentId: uuid("parent_id"),
 
     ownerId: text("owner_id").notNull(),
 
