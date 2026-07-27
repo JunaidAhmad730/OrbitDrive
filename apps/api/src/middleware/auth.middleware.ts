@@ -19,6 +19,8 @@ export function authenticate(
   try {
     const authHeader = req.headers.authorization;
 
+console.log("Authorization Header:", authHeader);
+
     if (!authHeader) {
       return res.status(401).json({
         success: false,

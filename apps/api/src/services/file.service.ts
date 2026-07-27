@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { randomUUID } from "crypto";
 
 import { fileRepository } from "../repositories/file.repository";
@@ -47,11 +49,19 @@ export class FileService {
   }
 
   async deleteFile(id: string) {
-    const file = await fileRepository.delete(id);
+    const file = await fileRepository.findById(id);
 
     if (!file) {
       throw new Error("File not found.");
     }
+
+    const fullPath = path.resolve(file.storagePath);
+
+    if (fs.existsSync(fullPath)) {
+      fs.unlinkSync(fullPath);
+    }
+
+    await fileRepository.delete(id);
 
     return {
       success: true,
